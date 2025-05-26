@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Web Dev Persona</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('resultbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+  
+
+    .result-container {
+     
+      text-align: center;
+ 
+    }
+
+    .inst {
+      font-size: 15px;
+     
+      color:gray;
+      font-weight: bold;
+      font-style: italic;
+      margin:0;
+    }
+
+.title-container {
+  background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 5px 5px black;
+    border-style: solid;
+    border-width: 4px;
+    border-color:black;
+    width: 500px; 
+    height: 75px;
+    margin-top:50px;
+}
+
+.title {
+  color:black;
+  font-size:28px;
+  font-weight: bold;
+  margin:0;
+  padding-top:10px;
+}
+  
+
+    .card-container {
+  perspective: 1000px;
+  margin: 15px auto;
+  width: 316px;
+  height: 475px;
+  z-index:1;
+}
+
+.flip-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  cursor: pointer;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card-back {
+  background-color: #333;
+  transform: rotateY(0deg);
+}
+
+.card-front {
+  transform: rotateY(180deg);
+}
+
+.card-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+.restart-btn {
+  z-index: 5;
+      position: relative;
+    cursor: pointer;
+    padding:10px;
+    font-size: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px black;
+    border-style: solid;
+    border-width: 4px;
+    border-color:black;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.restart-btn:hover {
+  background-color: #ffee58;
+  transform: scale(1.05);
+}
+
+  </style>
+</head>
+<body>
+  
+  <div class="result-container">
+
+    <div class = "title-container">
+      <p class="title">Your Web Dev Persona Is...</p>
+    <p class="inst">(Flip to reveal)</P>
+  </div>
+    <div class="card-container" onclick="flipCard()">
+        <div class="flip-card" id="flip-card">
+          <div class="card-face card-back">
+           
+            <img src="card-back.png" alt="Web-Verse Guild" />
+          </div>
+          <div class="card-face card-front">
+            
+            <img id="persona-image" src="placeholder.png" alt="Persona Image" />
+          </div>
+         
+        </div>
+
+      </div>
+      <button class="restart-btn" onclick="restartQuiz()">Restart the Test?</button>
+  </div>
+
+  <script>
+
+function restartQuiz() {
+  window.location.href = "index.html"; 
+};
+ function flipCard() {
+      const card = document.getElementById('flip-card');
+      card.classList.toggle('flipped');
+    }
+
+    window.onload = function () {
+  const persona = localStorage.getItem('persona');
+  const trimmedPersona = persona ? persona.trim() : "";
+ 
+  const image = document.getElementById('persona-image');
+
+  const personaImages = {
+    "UI Designer": "uidesigner.png",
+    "Frontend Developer": "frontend.png",
+    "Backend Developer": "backend.png",
+    "Full Stack Developer": "fullstack.png"
+  };
+
+
+  console.log("Persona from localStorage:", persona);
+  console.log("Trimmed persona:", trimmedPersona);
+  console.log("Image path:", personaImages[trimmedPersona]);
+
+
+  image.src = personaImages[trimmedPersona] || "placeholder.png";
+
+  image.onerror = () => console.error('Failed to load image:', image.src);
+
+    }
+
+
+
+  </script>
+</body>
+</html>
